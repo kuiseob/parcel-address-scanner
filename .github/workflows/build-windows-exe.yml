@@ -31,7 +31,7 @@ jobs:
         python build_windows_exe.py
 
     - name: Upload EXE artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: 택배주소스캔시스템-exe
         path: dist/택배주소스캔시스템.exe
