@@ -3,6 +3,7 @@ opencv-python==4.8.1.78
 openpyxl==3.11.2
 pillow==10.1.0
 requests>=2.31.0
+pyinstaller>=6.0.0
 
 # Phase 2
 python-barcode>=1.15.1

@@ -1,0 +1,65 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Build EXE with PyInstaller
+      run: |
+        python build_windows_exe.py
+
+    - name: Upload EXE artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: 택배주소스캔시스템-exe
+        path: dist/택배주소스캔시스템.exe
+        retention-days: 30
+
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/택배주소스캔시스템.exe
+        body: |
+          # 택배 주소 스캔 시스템 Release
+
+          ## 다운로드
+          `택배주소스캔시스템.exe` - Windows에서 직접 실행 가능
+
+          ## 설치 방법
+          1. 파일 다운로드
+          2. 더블클릭으로 실행
+          3. 첫 실행 시 카메라/프린터 권한 설정
+
+          ## 주요 기능
+          - 카메라로 택배 주소 스캔
+          - AI 자동 인식 (우편번호/수취인/전화번호)
+          - SQLite 데이터베이스
+          - QR코드 & 바코드 생성
+          - Xprinter 라벨프린터 연동
+
+          더 자세한 내용은 `택배주소스캔시스템_사용자매뉴얼.pdf`를 참고하세요.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
