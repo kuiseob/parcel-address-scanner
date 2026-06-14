@@ -37,7 +37,8 @@ env/
 # 프로젝트 데이터
 parcel_database.db
 *.xlsx
-barcodes/
+barcodes/*
+!barcodes/.gitkeep
 *.pdf
 # 예외: 사용자 매뉴얼은 포함
 !택배주소스캔시스템_사용자매뉴얼.pdf

@@ -42,17 +42,22 @@ def build_exe():
         print(f"  ✓ {spec_file} removed")
     print()
 
+    # Create barcodes folder if it doesn't exist
+    if not os.path.exists('barcodes'):
+        os.makedirs('barcodes')
+        print("  ✓ Created barcodes/ folder")
+    print()
+
     # Run PyInstaller
     print("[2/4] Running PyInstaller... (estimated 3-5 minutes)")
     print()
 
     try:
-        PyInstaller.__main__.run([
+        args = [
             '--onefile',
             '--windowed',
             '--name=parcel_scanner',
             '--icon=NONE',
-            '--add-data=barcodes:barcodes',
             '--hidden-import=cv2',
             '--hidden-import=easyocr',
             '--hidden-import=qrcode',
@@ -61,7 +66,13 @@ def build_exe():
             '--hidden-import=openpyxl',
             '--hidden-import=PIL',
             'main.py'
-        ])
+        ]
+
+        # Add barcodes folder only if it exists and has content
+        if os.path.exists('barcodes') and os.listdir('barcodes'):
+            args.insert(4, '--add-data=barcodes:barcodes')
+
+        PyInstaller.__main__.run(args)
         print()
         print("[3/4] EXE file generated successfully!")
         print()
