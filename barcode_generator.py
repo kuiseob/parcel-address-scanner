@@ -1,7 +1,4 @@
 import qrcode
-import barcode
-from barcode.writer import ImageWriter
-from barcode.ean13 import EAN13
 import json
 import os
 from pathlib import Path
