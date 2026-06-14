@@ -33,33 +33,33 @@ jobs:
     - name: Upload EXE artifact
       uses: actions/upload-artifact@v4
       with:
-        name: 택배주소스캔시스템-exe
-        path: dist/택배주소스캔시스템.exe
+        name: parcel-scanner-exe
+        path: dist/parcel_scanner.exe
         retention-days: 30
 
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
       uses: softprops/action-gh-release@v1
       with:
-        files: dist/택배주소스캔시스템.exe
+        files: dist/parcel_scanner.exe
         body: |
-          # 택배 주소 스캔 시스템 Release
+          # Parcel Address Scanner System Release
 
-          ## 다운로드
-          `택배주소스캔시스템.exe` - Windows에서 직접 실행 가능
+          ## Download
+          `parcel_scanner.exe` - Standalone executable for Windows
 
-          ## 설치 방법
-          1. 파일 다운로드
-          2. 더블클릭으로 실행
-          3. 첫 실행 시 카메라/프린터 권한 설정
+          ## Installation
+          1. Download the file
+          2. Double-click to run
+          3. Grant camera/printer permissions on first run
 
-          ## 주요 기능
-          - 카메라로 택배 주소 스캔
-          - AI 자동 인식 (우편번호/수취인/전화번호)
-          - SQLite 데이터베이스
-          - QR코드 & 바코드 생성
-          - Xprinter 라벨프린터 연동
+          ## Features
+          - Real-time parcel address scanning with camera
+          - AI-powered automatic recognition (postal code/receiver/phone)
+          - SQLite database storage
+          - QR code & barcode generation
+          - Xprinter label printer support
 
-          더 자세한 내용은 `택배주소스캔시스템_사용자매뉴얼.pdf`를 참고하세요.
+          For more details, see the user manual PDF in the repository.
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
